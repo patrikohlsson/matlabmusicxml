@@ -1,0 +1,30 @@
+struktur-----------------------------------------------------------------
+|						|						|						|
+|						|						|						|	
+|						notobjekt				start/stopp				artikulationer
+|
+|
+|
+V
+score--------------------
+|						|
+|						|
+part[]	# 1...n			partlist
+|						|
+|						|
+|						partname, part-abbreviation
+|
+measure[] # 1...m -----------------------------------					
+|						|							|		
+|						|							|
+|                       attributes					tempo
+|						
+note-------------------------------------------------------------------------					
+|						|							|						|		
+|						|							|						|
+|						duration					voice					notations
+|
+pitch------------------------------------------------
+|						|							|
+|						|							|
+step					alter						octave
