@@ -7,6 +7,8 @@ classdef mxmlnote
         duration;
         voice;
         notations;
+        lyric;
+        positioninbar;
     end
     
     methods

@@ -3,6 +3,7 @@ classdef mxmlmeasure
     %   Detailed explanation goes here
     
     properties
+        measurenumber;
         notes;
         attributes;
         tempo;

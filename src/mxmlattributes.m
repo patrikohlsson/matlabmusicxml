@@ -3,6 +3,10 @@ classdef mxmlattributes
     %   Detailed explanation goes here
     
     properties
+        divisions = 768;
+        key;
+        time;
+        clef;
     end
     
     methods
