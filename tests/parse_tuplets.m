@@ -3,10 +3,10 @@ x = [3/7 1/7 1/7 1/7 1/7 1/4 6/16 1/16 3/8 1/3 1/3 1/6 1/4+1/8+1/16+1/32+1/64];
 for j=1:length(x)
 s = strsplit(rats(x(j)),'/');
 if(length(s)>1)
-denom = str2num(s{1});
-divis = str2num(s{2});
+denom = str2double(s{1});
+divis = str2double(s{2});
 else
-denom = str2num(s{1});
+denom = str2double(s{1});
 divis=1;
 end
 dots = '';

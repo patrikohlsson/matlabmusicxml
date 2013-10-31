@@ -3,6 +3,7 @@ classdef mxmltempo
     %   Detailed explanation goes here
     
     properties
+        bpm = 60;
     end
     
     methods
