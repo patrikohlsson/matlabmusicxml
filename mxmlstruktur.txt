@@ -1,7 +1,4 @@
-struktur-----------------------------------------------------------------
-|						|						|						|
-|						|						|						|	
-|						notobjekt				start/stopp				artikulationer
+mxmlnote[]
 |
 |
 |
