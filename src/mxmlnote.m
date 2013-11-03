@@ -120,6 +120,7 @@ classdef mxmlnote
     end
     
     methods(Access=private)
+        
         function obj = boundfix(obj)
             % make sure length(ppitch) == length(velocity) ==
             % length(duration)
@@ -138,8 +139,32 @@ classdef mxmlnote
         end 
         
         function obj = create_starts_and_ends(obj)
-            obj.pstarts = [0 cumsum(obj.pduration(1:end-1))];
+            obj.pstarts = fix_starts(obj.pduration);
             obj.pends = cumsum(obj.pduration);
+            function dur = fix_starts(dur)
+                d = dur;
+                k=1;
+                y = [];
+                c={};
+                for q=1:length(d)
+                    y = [y d(q)];
+                    if(q+1<=length(d) && d(q+1)~=0)
+                        c{k} = y;
+                        y=[];
+                        k=k+1;
+                    end
+                end
+                if(~isempty(y))
+                    c{k}= y;
+                end
+                d = [];
+                for k=1:length(c)
+                    c{k}=wrev(c{k});
+                    d = [d c{k}];
+                end
+
+                dur=[0 cumsum(d(1:end-1))];
+            end
         end
     end
 end
