@@ -6,6 +6,8 @@ classdef mxmlnote
         pitch;
         velocity;
         duration;
+        starts;
+        ends;
     end
     
     properties
@@ -18,8 +20,8 @@ classdef mxmlnote
         ppitch;
         pvelocity;
         pduration;
-        starts;
-        ends;
+        pstarts;
+        pends;
         positioninbar;
     end
     
@@ -30,6 +32,7 @@ classdef mxmlnote
             obj.duration = duration;
             
             obj = boundfix(obj);
+            obj = create_starts_and_ends(obj);
             
             switch(length(varargin))
                 case 1
@@ -60,6 +63,14 @@ classdef mxmlnote
             val = obj.pduration;
         end
         
+        function val = get.starts(obj)
+            val = obj.pstarts;
+        end
+        
+        function val = get.ends(obj)
+            val = obj.pends;
+        end
+        
         function obj = set.pitch(obj,x)
             if(length(x)<length(obj.ppitch))
                 obj.ppitch = x;
@@ -69,6 +80,7 @@ classdef mxmlnote
                 obj.ppitch = x;
                 obj = boundfix(obj);
             end
+            obj = create_starts_and_ends(obj);
         end
         
         function obj = set.velocity(obj,x)
@@ -80,6 +92,7 @@ classdef mxmlnote
                 obj.pvelocity = x;
                 obj = boundfix(obj);
             end
+            obj = create_starts_and_ends(obj);
         end
         
         function obj = set.duration(obj,x)
@@ -91,6 +104,17 @@ classdef mxmlnote
                 obj.pduration = x;
                 obj = boundfix(obj);
             end
+            obj = create_starts_and_ends(obj);
+        end
+        
+        function obj = set.starts(obj, x)
+            obj.pstarts = x;
+            obj.pduration = obj.pends-obj.pstarts;
+        end
+        
+        function obj = set.ends(obj, x)
+            obj.pends = x;
+            obj.pduration = obj.pends-obj.pstarts;
         end
         
     end
@@ -112,5 +136,10 @@ classdef mxmlnote
             obj.pvelocity = repeatfor(obj.pvelocity, m);
             obj.pduration = repeatfor(obj.pduration, m);
         end 
+        
+        function obj = create_starts_and_ends(obj)
+            obj.pstarts = [0 cumsum(obj.pduration(1:end-1))];
+            obj.pends = cumsum(obj.pduration);
+        end
     end
 end
