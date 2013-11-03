@@ -117,6 +117,129 @@ classdef mxmlnote
             obj.pduration = obj.pends-obj.pstarts;
         end
         
+        function a = plus(a,b)
+            if(isa(b, 'mxmlnote'))
+                a.pitch = a.pitch + b.pitch;
+            elseif(isnumeric(b))
+                a.pitch = a.pitch + b;
+            end
+        end
+        
+        function a = minus(a,b)
+            if(isa(b, 'mxmlnote'))
+                a.pitch = a.pitch - b.pitch;
+            elseif(isnumeric(b))
+                a.pitch = a.pitch - b;
+            end
+        end
+        
+        function a = mtimes(a,b)
+            if(isa(b, 'mxmlnote'))
+                a.pitch = a.pitch .* b.pitch;
+            elseif(isnumeric(b))
+                a.pitch = a.pitch .* b;
+            end
+        end
+        
+        function a = times(a,b)
+            if(isa(b, 'mxmlnote'))
+                a.pitch = a.pitch * b.pitch;
+            elseif(isnumeric(b))
+                a.pitch = a.pitch * b;
+            end
+        end
+        
+        function a = divide(a,b)
+            if(isa(b, 'mxmlnote'))
+                a.pitch = a.pitch / b.pitch;
+            elseif(isnumeric(b))
+                a.pitch = a.pitch / b;
+            end
+        end
+        
+        function a = mdivide(a,b)
+            if(isa(b, 'mxmlnote'))
+                a.pitch = a.pitch ./ b.pitch;
+            elseif(isnumeric(b))
+                a.pitch = a.pitch ./ b;
+            end
+        end
+        
+        function a = power(a,b)
+            if(isa(b, 'mxmlnote'))
+                a.pitch = a.pitch ^ b.pitch;
+            elseif(isnumeric(b))
+                a.pitch = a.pitch ^ b;
+            end
+        end
+        
+        function a = mpower(a,b)
+            if(isa(b, 'mxmlnote'))
+                a.pitch = a.pitch .^ b.pitch;
+            elseif(isnumeric(b))
+                a.pitch = a.pitch .^ b;
+            end
+        end
+        
+        function obj = sp(obj,x)
+            obj.pitch = x;
+        end
+        
+        function obj = pp(obj,x)
+            obj.pitch = obj.pitch + x;
+        end
+        
+        function obj = mp(obj,x)
+            obj.pitch = obj.pitch - x;
+        end
+        
+        function obj = tp(obj,x)
+            obj.pitch = obj.pitch * x;
+        end
+        
+        function obj = dp(obj,x)
+            obj.pitch = obj.pitch * x;
+        end
+        
+        function obj = sv(obj,x)
+            obj.velocity = x;
+        end
+        
+        function obj = pv(obj,x)
+            obj.velocity = obj.velocity + x;
+        end
+        
+        function obj = mv(obj,x)
+            obj.velocity = obj.velocity - x;
+        end
+        
+        function obj = tv(obj,x)
+            obj.velocity = obj.velocity * x;
+        end
+        
+        function obj = dv(obj,x)
+            obj.velocity = obj.velocity * x;
+        end
+        
+        function obj = sd(obj,x)
+            obj.duration = x;
+        end
+        
+        function obj = pd(obj,x)
+            obj.duration = obj.duration + x;
+        end
+        
+        function obj = md(obj,x)
+            obj.duration = obj.duration - x;
+        end
+        
+        function obj = td(obj,x)
+            obj.duration = obj.duration * x;
+        end
+        
+        function obj = dd(obj,x)
+            obj.duration = obj.duration * x;
+        end
     end
     
     methods(Access=private)
