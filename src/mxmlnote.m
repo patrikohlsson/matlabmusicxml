@@ -42,6 +42,7 @@ classdef mxmlnote
                     else
                         obj.notations = varargin{1};
                     end
+                    obj.voice = ones(1, length(obj.pitch));
                 case 2
                     if(isempty(varargin{1}))
                         obj.notations = mxmlnotations;
@@ -62,6 +63,7 @@ classdef mxmlnote
                         error('Argument error: %s', 'Wrong argument count');
                     end
                     obj.notations = mxmlnotations;
+                    obj.voice = ones(1, length(obj.pitch));
             end
         end
         
@@ -206,6 +208,14 @@ classdef mxmlnote
             end
         end
         
+        function a = subsref(a, s)
+            if(isempty(a.notations))
+            a = mxmlnote(a.pitch(s.subs{1}), a.velocity(s.subs{1}), ...
+                a.duration(s.subs{1}), a.notations(s.subs{1}));
+            end
+        end
+        
+        % Shortcuts
         function obj = sp(obj,x)
             obj.pitch = x;
         end
@@ -268,7 +278,6 @@ classdef mxmlnote
     end
     
     methods(Access=private)
-        
         function obj = boundfix(obj)
             % make sure length(ppitch) == length(velocity) ==
             % length(duration)
