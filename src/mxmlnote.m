@@ -8,6 +8,7 @@ classdef mxmlnote
         duration;
         starts;
         ends;
+        barpos;
     end
     
     properties
@@ -22,7 +23,7 @@ classdef mxmlnote
         pduration;
         pstarts;
         pends;
-        positioninbar;
+        pbarpos;
     end
     
     methods
@@ -36,21 +37,35 @@ classdef mxmlnote
             
             switch(length(varargin))
                 case 1
-                    obj.notations = varargin{1};
+                    if(isempty(varargin{1}))
+                        obj.notations = mxmlnotations;
+                    else
+                        obj.notations = varargin{1};
+                    end
                 case 2
-                    obj.notations = varargin{1};
+                    if(isempty(varargin{1}))
+                        obj.notations = mxmlnotations;
+                    else
+                        obj.notations = varargin{1};
+                    end
                     obj.voice = varargin{2};
                 case 3
-                    obj.notations = varargin{1};
+                    if(isempty(varargin{1}))
+                        obj.notations = mxmlnotations;
+                    else
+                        obj.notations = varargin{1};
+                    end
                     obj.voice = varargin{2};
                     obj.lyric = varargin{3};
                 otherwise
                     if(length(varargin)>3)
                         error('Argument error: %s', 'Wrong argument count');
                     end
+                    obj.notations = mxmlnotations;
             end
         end
         
+        % Getters
         function val = get.pitch(obj)
             val = obj.ppitch;
         end
@@ -71,6 +86,11 @@ classdef mxmlnote
             val = obj.pends;
         end
         
+        function val = get.barpos(obj)
+            val = obj.pbarpos;
+        end
+        
+        % Setters
         function obj = set.pitch(obj,x)
             if(length(x)<length(obj.ppitch))
                 obj.ppitch = x;
@@ -117,6 +137,11 @@ classdef mxmlnote
             obj.pduration = obj.pends-obj.pstarts;
         end
         
+        function obj = set.barpos(obj, x)
+            obj.pbarpos = x;
+        end
+        
+        % Operator overloading
         function a = plus(a,b)
             if(isa(b, 'mxmlnote'))
                 a.pitch = a.pitch + b.pitch;

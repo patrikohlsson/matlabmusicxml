@@ -3,6 +3,8 @@ classdef mxmlnotations
     %   Detailed explanation goes here
     
     properties
+        tied;
+        articulations;
     end
     
     methods
