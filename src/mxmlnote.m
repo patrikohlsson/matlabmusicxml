@@ -209,11 +209,55 @@ classdef mxmlnote
         end
         
         function a = subsref(a, s)
-            if(isempty(a.notations))
-            a = mxmlnote(a.pitch(s.subs{1}), a.velocity(s.subs{1}), ...
-                a.duration(s.subs{1}), a.notations(s.subs{1}));
+            for j=1:length(s)
+                if(strcmpi(s(j).type,'()'))
+                    notations = a.notations;
+                    voice = a.voice;
+                    lyrics = a.lyric;
+
+                    if(max(s(j).subs{1})<length(notations))
+                        notations = notations(s(j).subs{1});
+                    end
+
+                    if(max(s(j).subs{1})<length(voice))
+                        voice = voice(s(j).subs{1});
+                    end
+
+                    if(max(s(j).subs{1})<length(lyrics))
+                        lyrics = lyrics(s(j).subs{1});
+                    end
+
+                    a = mxmlnote(a.pitch(s(j).subs{1}), a.velocity(s(j).subs{1}), ...
+                        a.duration(s(j).subs{1}), notations, voice, lyrics);
+                else
+                    a = builtin('subsref', a, s(j));
+                end
             end
         end
+% TODO: FIX SUBASSIGNMENTS
+%         function a = subsasgn(a, s, b)
+%             for j=1:length(s)
+%                 if(strcmpi(s(j).type, '()'))
+%                     p = a.pitch;
+%                     v = a.velocity;
+%                     d = a.duration;
+%                     n = a.notations;
+%                     v = a.voice;
+%                     l = a.lyric;
+%                     
+%                     p(s(j).subs{1}) = b.pitch;
+%                     v(s(j).subs{1}) = b.velocity;
+%                     d(s(j).subs{1}) = b.duration;
+%                     n(s(j).subs{1}) = b.notations;
+%                     v(s(j).subs{1}) = b.voice;
+%                     l(s(j).subs{1}) = b.lyric;
+%                     
+%                     a = mxmlnote(p,v,d,n,v,l);
+%                 else
+%                     a = builtin('subsasgn', a, s(j), b);
+%                 end
+%             end
+%         end
         
         % Shortcuts
         function obj = sp(obj,x)

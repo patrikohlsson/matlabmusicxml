@@ -3,7 +3,7 @@ classdef mxmlnotations
     %   Detailed explanation goes here
     
     properties
-        tied;
+        tied = 0;
         articulations;
     end
     

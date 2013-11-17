@@ -26,11 +26,9 @@
 			</attributes>
 			<direction placement='below'>
 				<direction-type>
-					<metronome beat-unit='256'>
-						<dynamics>
-							<pp/>
-						</dynamics>
-					</metronome>
+                    <dynamics>
+                        <pp/>
+                    </dynamics>
 				</direction-type>
 			</direction>
 			<sound tempo='60'/>
@@ -50,16 +48,19 @@
 			    </time-modification>
 				<notations>
 					<articulations>
-						<staccato/>
+						<strong-accent/>
 					</articulations>
 					<slur type='start'/>
+                    <ornaments>
+                        <trill-mark placement='above'/>
+                    </ornaments>
 				</notations>
 			</note>
 			<note>
 				<pitch>
 					<step>C</step>
 					<alter>0</alter>
-					<octave>4</octave>
+					<octave>5</octave>
 				</pitch>
 				<duration>512</duration>
 				<voice>1</voice>
@@ -69,9 +70,9 @@
 					<normal-notes>2</normal-notes>
 					<normal-type>quarter</normal-type>
 			    </time-modification>
-				<notations>
+				<notations>                    
 					<articulations>
-						<staccato/>
+						<tenuto/>
 					</articulations>
 				</notations>
 			</note>
