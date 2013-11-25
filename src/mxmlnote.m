@@ -211,24 +211,28 @@ classdef mxmlnote
         function a = subsref(a, s)
             for j=1:length(s)
                 if(strcmpi(s(j).type,'()'))
-                    notations = a.notations;
-                    voice = a.voice;
-                    lyrics = a.lyric;
+                    if(isa(s(j).subs{1},'mxmlnote'))
+                        notations = a.notations;
+                        voice = a.voice;
+                        lyrics = a.lyric;
 
-                    if(max(s(j).subs{1})<length(notations))
-                        notations = notations(s(j).subs{1});
+                        if(max(s(j).subs{1})<length(notations))
+                            notations = notations(s(j).subs{1});
+                        end
+
+                        if(max(s(j).subs{1})<length(voice))
+                            voice = voice(s(j).subs{1});
+                        end
+
+                        if(max(s(j).subs{1})<length(lyrics))
+                            lyrics = lyrics(s(j).subs{1});
+                        end
+
+                        a = mxmlnote(a.pitch(s(j).subs{1}), a.velocity(s(j).subs{1}), ...
+                            a.duration(s(j).subs{1}), notations, voice, lyrics);
+                    else
+                        a = builtin('subsref', a, s(j));
                     end
-
-                    if(max(s(j).subs{1})<length(voice))
-                        voice = voice(s(j).subs{1});
-                    end
-
-                    if(max(s(j).subs{1})<length(lyrics))
-                        lyrics = lyrics(s(j).subs{1});
-                    end
-
-                    a = mxmlnote(a.pitch(s(j).subs{1}), a.velocity(s(j).subs{1}), ...
-                        a.duration(s(j).subs{1}), notations, voice, lyrics);
                 else
                     a = builtin('subsref', a, s(j));
                 end

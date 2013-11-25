@@ -5,7 +5,7 @@ classdef mxmlmeasure
     properties
         measurenumber;
         attributes;
-        tempo;
+        time;
     end
     
     properties(Dependent)
@@ -25,17 +25,17 @@ classdef mxmlmeasure
             switch(length(varargin))
                 case 1
                     obj.attributes = varargin{1};
-                    obj.tempo = mxmltempo;
+                    obj.time = mxmltime;
                 case 2
                     if(isempty(varargin{1}))
                         obj.attributes = mxmlattributes;
                     else
                         obj.attributes = varargin{1};
                     end
-                    obj.tempo = varargin{2};
+                    obj.time = varargin{2};
                 otherwise
                     obj.attributes = mxmlattributes;
-                    obj.tempo = mxmltempo;
+                    obj.time = mxmltime;
             end
             
             [obj.pnotes, obj.poverflow] = parsenotes(obj, notes);
@@ -54,8 +54,8 @@ classdef mxmlmeasure
             val = obj.attributes;
         end
         
-        function val = get.tempo(obj)
-            val = obj.tempo;
+        function val = get.time(obj)
+            val = obj.time;
         end
         
         function val = get.overflow(obj)
@@ -92,7 +92,6 @@ classdef mxmlmeasure
                 return;
             end
             
-            % TODO: Implement subindexing of note
         end
     end
     
