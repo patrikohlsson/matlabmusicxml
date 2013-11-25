@@ -7,6 +7,8 @@ function dots = numdotsonnote( dur )
 denom = getvalueratio(dur);
 ndots = log2((denom+1)/4);
 
+dots = 0;
+
 if(ndots == fix(ndots))
     dots = ndots+1;
 end

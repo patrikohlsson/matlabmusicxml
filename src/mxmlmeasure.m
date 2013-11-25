@@ -5,7 +5,6 @@ classdef mxmlmeasure
     properties
         measurenumber;
         attributes;
-        time;
     end
     
     properties(Dependent)
@@ -15,7 +14,7 @@ classdef mxmlmeasure
     
     properties(SetAccess=private, Hidden)
         pnotes;
-        poverflow;
+        poverflow;  % mxmlnote
     end
     
     methods
@@ -25,17 +24,14 @@ classdef mxmlmeasure
             switch(length(varargin))
                 case 1
                     obj.attributes = varargin{1};
-                    obj.time = mxmltime;
                 case 2
                     if(isempty(varargin{1}))
                         obj.attributes = mxmlattributes;
                     else
                         obj.attributes = varargin{1};
                     end
-                    obj.time = varargin{2};
                 otherwise
                     obj.attributes = mxmlattributes;
-                    obj.time = mxmltime;
             end
             
             [obj.pnotes, obj.poverflow] = parsenotes(obj, notes);
@@ -54,10 +50,6 @@ classdef mxmlmeasure
             val = obj.attributes;
         end
         
-        function val = get.time(obj)
-            val = obj.time;
-        end
-        
         function val = get.overflow(obj)
             val = obj.poverflow;
         end
@@ -68,6 +60,7 @@ classdef mxmlmeasure
         end
         
         function obj = set.notes(obj, x)
+            % TODO: Calculate overfow
             obj.pnotes = x;
             obj.poverflow = [1 2 3 4];
         end
@@ -77,6 +70,7 @@ classdef mxmlmeasure
         end
         
         % Operator overloading
+        % m1 + m2 = [m1, m2]
         
         % Public functions
     end

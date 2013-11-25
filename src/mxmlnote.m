@@ -208,6 +208,8 @@ classdef mxmlnote
             end
         end
         
+        % TODO: Override concatenation here
+        
         function a = subsref(a, s)
             for j=1:length(s)
                 if(strcmpi(s(j).type,'()'))
@@ -323,6 +325,12 @@ classdef mxmlnote
         function obj = dd(obj,x)
             obj.duration = obj.duration * x;
         end
+        
+        % XML Printers
+        % public print()
+        % private printheader()
+        % private printdata()
+        % private printfooter()
     end
     
     methods(Access=private)

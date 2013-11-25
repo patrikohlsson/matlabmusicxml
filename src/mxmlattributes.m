@@ -29,6 +29,9 @@ classdef mxmlattributes
                     obj.key = varargin{4};
             end
         end
+        
+        % Getters
+        % Setters
     end
     
 end

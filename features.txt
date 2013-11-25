@@ -1,0 +1,27 @@
+USAGE RELATED:
+General usage:
+Work with arrays of musical data of type:
+normal: pitch, velocity, duration or starts/ends
+articulative: accent, slur start/end, tie start/end, staccato etc.
+lines: crescendo/diminuendo, trill ?
+dynamics: independent of velocity, but indexable
+
+pass arrays to mxmlscore:
+mxmlscore(mxmlnote, mxmlpartlist);
+mxmlscore(mxmlnote);
+mxmlscore;
+
+	mxmlscore internally generates one part per instrument
+
+do additional assignments of articulations, dynamics etc.
+
+	mxmlscore recalculates mxmlparts for each new assignment
+
+mxmlscore.save(filename)
+
+	mxmlscore internally collects all of the mxml code from the subclasses and writes it to a file
+
+FEATURE RELATED:
+Concatenate measures using the + operator?	ex. |4/4| + [7/8] = 15/8
+Deal with beaming? Could be done with a group struct like: grouping.values = [4 5 6], grouping.division = 1/8 or 8 or (2^)3
+Measures would need a group assignment variable for each note, telling if a specific note belongs to group 1, 2 ... length(grouping.values)
