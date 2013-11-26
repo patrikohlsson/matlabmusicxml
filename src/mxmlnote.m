@@ -303,7 +303,7 @@ classdef mxmlnote
         end
         
         function obj = dp(obj,x)
-            obj.pitch = obj.pitch * x;
+            obj.pitch = obj.pitch / x;
         end
         
         function obj = sv(obj,x)
@@ -323,7 +323,7 @@ classdef mxmlnote
         end
         
         function obj = dv(obj,x)
-            obj.velocity = obj.velocity * x;
+            obj.velocity = obj.velocity / x;
         end
         
         function obj = sd(obj,x)
@@ -343,7 +343,7 @@ classdef mxmlnote
         end
         
         function obj = dd(obj,x)
-            obj.duration = obj.duration * x;
+            obj.duration = obj.duration / x;
         end
         
         % XML Printers
