@@ -208,12 +208,28 @@ classdef mxmlnote
             end
         end
         
+        function a = horzcat(a, b)
+            if(isa(b, 'mxmlnote'))
+                a = mxmlnote([a.pitch, b.pitch], [a.velocity, b.velocity], ...
+                    [a.duration, b.duration], [a.notations, b.notations],  ...
+                    [a.voice, b.voice], [a.lyric, b.lyric]);
+            else
+                a = mxmlnote([a.pitch, b], a.velocity, ...
+                    a.duration, a.notations,  ...
+                    a.voice, a.lyric);
+            end
+        end
+        
         % TODO: Override concatenation here
         
         function a = subsref(a, s)
             for j=1:length(s)
                 if(strcmpi(s(j).type,'()'))
-                    if(isa(s(j).subs{1},'mxmlnote'))
+                    if(isa(a,'mxmlnote'))
+                        if(islogical(s(j).subs{1}) && all(~s(j).subs{1}))
+                            a = [];
+                            return;
+                        end
                         notations = a.notations;
                         voice = a.voice;
                         lyrics = a.lyric;
@@ -230,8 +246,11 @@ classdef mxmlnote
                             lyrics = lyrics(s(j).subs{1});
                         end
 
-                        a = mxmlnote(a.pitch(s(j).subs{1}), a.velocity(s(j).subs{1}), ...
+                        b = mxmlnote(a.pitch(s(j).subs{1}), a.velocity(s(j).subs{1}), ...
                             a.duration(s(j).subs{1}), notations, voice, lyrics);
+                        b.starts = a.starts(s(j).subs{1});
+                        b.ends = a.ends(s(j).subs{1});
+                        a = b;
                     else
                         a = builtin('subsref', a, s(j));
                     end
@@ -240,6 +259,7 @@ classdef mxmlnote
                 end
             end
         end
+        
 % TODO: FIX SUBASSIGNMENTS
 %         function a = subsasgn(a, s, b)
 %             for j=1:length(s)

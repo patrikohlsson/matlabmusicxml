@@ -60,9 +60,8 @@ classdef mxmlmeasure
         end
         
         function obj = set.notes(obj, x)
-            % TODO: Calculate overfow
-            obj.pnotes = x;
-            obj.poverflow = [1 2 3 4];
+            [obj.pnotes, obj.poverflow] = ...
+                parsenotes(obj, x);
         end
         
         function obj = set.attributes(obj, x)
@@ -79,15 +78,28 @@ classdef mxmlmeasure
         function [result, overflow] = parsenotes(obj, notes)
             meastime = obj.attributes.time.beattype / ...
                 obj.attributes.time.beatcount;
-            
+            result = [];
+            overflow = [];
             if(notes.ends(end)<=meastime)
                 result = notes;
                 overflow = [];
-                return;
+            else
+                % TODO: Calculate overflow
+                result = notes(notes.ends<=meastime);
+                if(any(notes.starts<meastime & notes.ends>meastime))
+                    split = notes(notes.starts<meastime & ...
+                        notes.ends>meastime);
+                    d1 = meastime - split.starts;
+                    d2 = split.ends - split.starts;
+                    split.notations.tied = 1;
+                    split.duration = d1;
+                    result = [result split];
+                    split.notations.tied = 2;
+                    split.duration = d2;
+                    overflow = [split notes(notes.starts>=meastime)];
+                end
             end
-            
         end
     end
     
 end
-
